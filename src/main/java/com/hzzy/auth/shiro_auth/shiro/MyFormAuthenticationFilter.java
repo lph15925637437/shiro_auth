@@ -1,6 +1,5 @@
 package com.hzzy.auth.shiro_auth.shiro;
 
-import com.alibaba.fastjson.JSON;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.pam.UnsupportedTokenException;
@@ -15,7 +14,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,7 +47,8 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
     }
 
     protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request, ServletResponse response) throws Exception {
-        output(response, new HashMap<String, Object>());
+        HttpServletResponse httpServletResponse = (HttpServletResponse)response;
+        httpServletResponse.sendRedirect("/");
         return false;
     }
 
@@ -69,23 +68,9 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
             logger.error("登录时发生异常:" + e.getMessage());
             resultMap.put("errmsg", "登录时发生未知错误");
         }
+        request.setAttribute("errmsg", "未知账户, 不能登录");
 
-        output(response, resultMap);
-        return false;
-    }
-
-    private void output(ServletResponse response, Object obj) {
-        response.setContentType("text/html;charset=utf-8");
-        PrintWriter pw;
-        try {
-            pw = response.getWriter();
-            pw.write(JSON.toJSONString(obj));
-            pw.flush();
-            pw.close();
-        } catch (IOException ex) {
-            // TODO 调用日志服务入库
-            logger.error("ResponseUtil IO异常:" + ex.getMessage());
-        }
+        return true;
     }
 
 }

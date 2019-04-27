@@ -7,6 +7,7 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -16,16 +17,20 @@ public class LoginController {
 
     @RequestMapping(value = "/login")
     public String login(String username, String password) {
-        Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+        //
+//        Subject subject = SecurityUtils.getSubject();
+//        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+//
+//        try {
+//            subject.login(token);
+//        } catch (AuthenticationException e) {
+//            logger.error("errmsg:{}", "未知账户, 不能登录");
+//            return "login";
+//        }
 
-        try {
-            subject.login(token);
-        } catch (AuthenticationException e) {
-            logger.error("errmsg:{}", "未知账户, 不能登录");
-            return "login";
-        }
-        return "success";
+
+
+        return "/login";
     }
 
     @RequestMapping("/logout")
@@ -40,5 +45,11 @@ public class LoginController {
     @ResponseBody
     public String get(){
         return "进入get方法";
+    }
+
+    @RequestMapping("/valid")
+    @ResponseBody
+    public String valid(){
+        return "可以在该方法生成图片验证码";
     }
 }

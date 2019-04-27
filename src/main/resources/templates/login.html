@@ -4,7 +4,20 @@
     <meta charset="UTF-8">
     <title>登录页面</title>
 </head>
-<body>
-    <h1>请先进行身份认证</h1>
+<!--<body>-->
+    <!--<h1>请先进行身份认证</h1>-->
+<!--</body>-->
+<body style="margin-left: 500px">
+<h1 style="margin-left: 30px">登录页面----</h1>
+<form action="/login" method="post">
+    用户名 : <input type="text" name="username" id="username"/><br>
+    密码: <input type="password" name="password" id="password"/><br>
+    <!--验证码：<input type="text" name="gifCode" id="gifCode"/>-->
+    <!--<img alt="验证码" src="<%=basePath%>gif/getGifCode"><br>-->
+    <!--<input type="checkbox" name="rememberMe" />记住我<br>-->
+    <input style="margin-left: 100px" type="submit" value="登录"/>
+</form>
+<span th:text="${errmsg}" style="color: red">登录失败后返回的信息</span>
+<!--<span>[[${errmsg}]]</span>-->
 </body>
 </html>

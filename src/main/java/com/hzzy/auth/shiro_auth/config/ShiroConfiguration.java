@@ -127,13 +127,14 @@ public class ShiroConfiguration {
         bean.setSecurityManager(defaultWebSecurityManager());
         //配置登录的url和登录成功的url
         bean.setLoginUrl("/login");
-        bean.setSuccessUrl("/");
+        bean.setUnauthorizedUrl("/login");
         Map<String, Filter> filters = new HashMap<String, Filter>();
         MyFormAuthenticationFilter filter = new MyFormAuthenticationFilter();
         filters.put("authc", filter);
         bean.setFilters(filters);
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-        filterChainDefinitionMap.put("/static/**", "anon");
+        filterChainDefinitionMap.put("/valid", "anon");
+        filterChainDefinitionMap.put("/templates/**", "anon");
         filterChainDefinitionMap.put("/login", "authc");
         filterChainDefinitionMap.put("/**", "user");//表示需要认证才可以访问
         filterChainDefinitionMap.put("/logout", "logout");

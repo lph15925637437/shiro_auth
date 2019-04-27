@@ -1,2 +1,6 @@
 # shiro_auth
 测试shiro身份认证
+
+在shiro通过表单提交的时候，首先在后台会请求 AuthenticatingFilter身份认证的过滤器类，在该类中将
+
+	username和password等信息封装到token中，最终在进入自定义reaml类中用户的信息可以直接在token中获取
